@@ -1,0 +1,87 @@
+@use '@/styles/variables.scss' as *;
+
+.page {
+  min-height: 100vh;
+  background: $color-bg-page;
+  padding-bottom: $tabbar-height;
+}
+
+.header {
+  background: linear-gradient(135deg, $color-primary 0%, $color-primary-light 100%);
+  padding: $spacing-lg;
+  padding-top: calc($spacing-lg + env(safe-area-inset-top));
+  
+  .title {
+    font-size: $font-size-xl;
+    font-weight: 600;
+    color: $color-text-white;
+    margin-bottom: $spacing-md;
+  }
+  
+  .subtitle {
+    font-size: $font-size-sm;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: $spacing-lg;
+  }
+  
+  .searchBar {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: $radius-button;
+    padding: $spacing-sm $spacing-md;
+    display: flex;
+    align-items: center;
+    
+    .searchIcon {
+      font-size: $font-size-base;
+      color: rgba(255, 255, 255, 0.8);
+      margin-right: $spacing-sm;
+    }
+    
+    .searchInput {
+      flex: 1;
+      background: transparent;
+      color: $color-text-white;
+      font-size: $font-size-base;
+    }
+  }
+}
+
+.statsRow {
+  display: flex;
+  padding: $spacing-lg;
+  gap: $spacing-md;
+  
+  > * {
+    flex: 1;
+  }
+}
+
+.section {
+  padding: $spacing-lg;
+  
+  .sectionTitle {
+    font-size: $font-size-lg;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin-bottom: $spacing-md;
+    display: flex;
+    align-items: center;
+    
+    .icon {
+      font-size: $font-size-lg;
+      margin-right: $spacing-sm;
+    }
+  }
+}
+
+.eventList {
+  display: flex;
+  flex-direction: column;
+}
+
+.loadMore {
+  text-align: center;
+  padding: $spacing-lg;
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}

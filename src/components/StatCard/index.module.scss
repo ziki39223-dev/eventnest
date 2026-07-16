@@ -1,0 +1,41 @@
+@use '@/styles/variables.scss' as *;
+
+.card {
+  background: $color-bg-card;
+  border-radius: $radius-md;
+  padding: $spacing-lg;
+  display: flex;
+  align-items: center;
+  box-shadow: $shadow-card;
+}
+
+.icon {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: $radius-md;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: $spacing-md;
+}
+
+.iconText {
+  font-size: 36rpx;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+}
+
+.value {
+  font-size: $font-size-xl;
+  font-weight: 600;
+  color: $color-text-primary;
+  margin-bottom: $spacing-xs;
+}
+
+.title {
+  font-size: $font-size-sm;
+  color: $color-text-tertiary;
+}
