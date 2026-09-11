@@ -1,16 +1,27 @@
 import { callFunction } from './cloud'
+import { withTracking } from '@/utils/performance'
 import type { Message } from '@/types/message'
 
-export async function getMessages(params?: {
+export function getMessages(params?: {
   page?: number
   size?: number
 }): Promise<Message[]> {
-  return callFunction<Message[]>('getMessages', params)
+  return withTracking(
+    'message.getMessages',
+    () => callFunction<Message[]>('getMessages', params),
+    {
+      successData: (result) => ({ count: result.length, page: params?.page, size: params?.size })
+    }
+  )
 }
 
-export async function sendMessage(data: {
+export function sendMessage(data: {
   toOpenid: string
   content: string
 }): Promise<{ success: boolean }> {
-  return callFunction<{ success: boolean }>('sendMessage', data)
+  return withTracking(
+    'message.sendMessage',
+    () => callFunction<{ success: boolean }>('sendMessage', data),
+    { errorData: { toOpenid: data.toOpenid } }
+  )
 }

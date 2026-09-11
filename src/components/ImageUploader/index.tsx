@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { View, Image, Button } from '@tarojs/components'
+import { useState } from 'react'
+import { View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import styles from './index.module.scss'
 

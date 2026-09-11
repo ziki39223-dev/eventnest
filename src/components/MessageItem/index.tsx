@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { View, Text, Image } from '@tarojs/components'
 import type { Message } from '@/types/message'
 import { getRelativeTime } from '@/utils'

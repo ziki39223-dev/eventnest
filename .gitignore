@@ -15,3 +15,7 @@ Thumbs.db
 .env.local
 .env.*.local
 *.md.html
+# Temporary files
+_tmp_*
+.eslintcache
+nul

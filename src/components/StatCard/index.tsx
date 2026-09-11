@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import { memo } from 'react'
 import { View, Text } from '@tarojs/components'
 import styles from './index.module.scss'
 

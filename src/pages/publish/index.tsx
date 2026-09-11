@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { View, Text, Input, Textarea, Button, Picker } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { createEvent } from '@/services/event'

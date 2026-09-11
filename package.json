@@ -1,8 +1,8 @@
 {
-  "name": "taro_template",
+  "name": "eventnest",
   "version": "1.0.0",
   "private": true,
-  "description": "taro_template",
+  "description": "EventNest - 社交活动管理小程序（微信小程序 + H5）",
   "templateInfo": {
     "name": "react",
     "typescript": true,

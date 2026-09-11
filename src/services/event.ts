@@ -1,24 +1,21 @@
 import { callFunction } from './cloud'
-import { startTimer, endTimer, trackError } from '@/utils/performance'
+import { withTracking } from '@/utils/performance'
 import type { Event, EventDetail } from '@/types/event'
 
-export async function getEvents(params?: {
+export function getEvents(params?: {
   page?: number
   size?: number
 }): Promise<Event[]> {
-  startTimer('event.getEvents')
-  try {
-    const result = await callFunction<Event[]>('getEvents', params)
-    endTimer('event.getEvents', { count: result.length, page: params?.page, size: params?.size })
-    return result
-  } catch (err) {
-    endTimer('event.getEvents', { success: false })
-    trackError('event.getEvents.error', err as Error, params)
-    throw err
-  }
+  return withTracking(
+    'event.getEvents',
+    () => callFunction<Event[]>('getEvents', params),
+    {
+      successData: (result) => ({ count: result.length, page: params?.page, size: params?.size })
+    }
+  )
 }
 
-export async function createEvent(data: {
+export function createEvent(data: {
   title: string
   description: string
   images: string[]
@@ -26,40 +23,28 @@ export async function createEvent(data: {
   startTime: number
   endTime: number
 }): Promise<Event> {
-  startTimer('event.createEvent')
-  try {
-    const result = await callFunction<Event>('createEvent', data)
-    endTimer('event.createEvent', { title: data.title, imageCount: data.images.length })
-    return result
-  } catch (err) {
-    endTimer('event.createEvent', { success: false })
-    trackError('event.createEvent.error', err as Error, { title: data.title })
-    throw err
-  }
+  return withTracking(
+    'event.createEvent',
+    () => callFunction<Event>('createEvent', data),
+    {
+      successData: () => ({ title: data.title, imageCount: data.images.length }),
+      errorData: { title: data.title }
+    }
+  )
 }
 
-export async function getEventDetail(eventId: string): Promise<EventDetail> {
-  startTimer('event.getEventDetail')
-  try {
-    const result = await callFunction<EventDetail>('getEventDetail', { eventId })
-    endTimer('event.getEventDetail', { eventId })
-    return result
-  } catch (err) {
-    endTimer('event.getEventDetail', { success: false })
-    trackError('event.getEventDetail.error', err as Error, { eventId })
-    throw err
-  }
+export function getEventDetail(eventId: string): Promise<EventDetail> {
+  return withTracking(
+    'event.getEventDetail',
+    () => callFunction<EventDetail>('getEventDetail', { eventId }),
+    { errorData: { eventId } }
+  )
 }
 
-export async function participateEvent(eventId: string): Promise<{ success: boolean }> {
-  startTimer('event.participateEvent')
-  try {
-    const result = await callFunction<{ success: boolean }>('participateEvent', { eventId })
-    endTimer('event.participateEvent', { eventId, success: result.success })
-    return result
-  } catch (err) {
-    endTimer('event.participateEvent', { success: false })
-    trackError('event.participateEvent.error', err as Error, { eventId })
-    throw err
-  }
+export function participateEvent(eventId: string): Promise<{ success: boolean }> {
+  return withTracking(
+    'event.participateEvent',
+    () => callFunction<{ success: boolean }>('participateEvent', { eventId }),
+    { errorData: { eventId } }
+  )
 }

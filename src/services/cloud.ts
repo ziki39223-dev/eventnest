@@ -31,7 +31,9 @@ export async function callFunction<T = unknown>(
     const result = res.result as CloudFunctionResult<T>
     if (result.code !== 0) {
       endTimer(timerKey, { success: false })
-      console.error(`[Cloud] ${name} failed:`, result.message)
+      if (process.env.NODE_ENV !== 'production') {
+        console.error(`[Cloud] ${name} failed:`, result.message)
+      }
       throw new Error(result.message || '请求失败')
     }
     endTimer(timerKey, { success: true, dataSize: JSON.stringify(result.data).length })
