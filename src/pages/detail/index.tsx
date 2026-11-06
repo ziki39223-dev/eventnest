@@ -11,8 +11,9 @@ export default function DetailPage() {
   const [loading, setLoading] = useState(false)
   
   useEffect(() => {
-    const options = Taro.getLaunchOptionsSync()
-    const eventId = options.query?.id || ''
+    // getLaunchOptionsSync 拿到的是应用启动参数，页面跳转传的 ?id= 不在里面，
+    // 必须从当前页面 router 的 params 读取，否则详情页永远显示「活动不存在」
+    const eventId = Taro.getCurrentInstance().router?.params?.id || ''
     if (eventId) {
       fetchEventDetail(eventId)
     }
